@@ -9,13 +9,15 @@ function rel(){
 location.reload();
 }
 
+
+
   
 function handleEventChange() {
     const eventSelect = document.getElementById('event');
     const ageInputDiv = document.getElementById('ageInput');
     const ageInput = document.getElementById('age');
   
-    if (eventSelect.value === 'birthday') {
+    if (eventSelect.value === 'יום הולדת') {
       ageInputDiv.style.display = 'block';
     } else {
       ageInputDiv.style.display = 'none';
@@ -57,8 +59,11 @@ function handleEventChange() {
     document.querySelector('label[for="event"]').style.display = 'none';    
     document.querySelector('label[for="age"]').style.display = 'none';    
     document.querySelector('label[for="atmosphere"]').style.display = 'none';    
+    document.getElementById("submitButton").innerText = "משהו אחר"
+    document.getElementById("submitButton").onclick = function(){
+      console.log("ooooooooooooooooo");
+    }
 
-    
     // Send a request to the server with the choices
     fetch(`/get?category=${category}&event=${event}&age=${age}`)
       .then(response => response.text())
