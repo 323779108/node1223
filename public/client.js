@@ -1,17 +1,5 @@
-
-function handleCategoryChange() {
-  }
-
-function handleAtmosphereChange(){
-}
-
-function rel(){
-location.reload();
-}
-
-
-
-  
+let degel = 0
+let res = []
 function handleEventChange() {
     const eventSelect = document.getElementById('event');
     const ageInputDiv = document.getElementById('ageInput');
@@ -24,7 +12,9 @@ function handleEventChange() {
       ageInput.value = '';
     }
   }
-
+  function rel(){
+    location.reload();
+    }
   function submitChoices() {
     const responseContainer = document.getElementById('responseContainer')
     const category = document.getElementById('category').value;
@@ -37,20 +27,15 @@ function handleEventChange() {
       event:event,
       age:age
     }
-    console.log(obj);
 
     responseContainer.style.display = 'block';
+    responseContainer.innerHTML = `<p></p>`;
     const ageInput = document.getElementById('age');
     const categorySelect = document.getElementById('category');
     const eventSelect = document.getElementById('event');
     const atmosphereSelect = document.getElementById('atmosphere');
     const reButton = document.getElementById("rel")
-    reButton.style.display = 'block'
-    reButton.textContent = " :אווירה "+atmosphere+" :סוג"+category + ' אירוע: '+event;
-    if (age!='')
-    reButton.textContent += 'גיל' + age;
-   
-
+    
     categorySelect.style.display = 'none'
     eventSelect.style.display = 'none'
     atmosphereSelect.style.display = 'none'
@@ -58,22 +43,40 @@ function handleEventChange() {
     document.querySelector('label[for="category"]').style.display = 'none';    
     document.querySelector('label[for="event"]').style.display = 'none';    
     document.querySelector('label[for="age"]').style.display = 'none';    
-    document.querySelector('label[for="atmosphere"]').style.display = 'none';    
+    document.querySelector('label[for="atmosphere"]').style.display = 'none';   
+    
+    reButton.style.display = 'block'
+    reButton.textContent = " :אווירה "+atmosphere+" :סוג"+category + ' אירוע: '+event;
+    if (age!='')
+    reButton.textContent += 'גיל' + age;
+
     document.getElementById("submitButton").innerText = "משהו אחר"
-    document.getElementById("submitButton").onclick = function(){
-      console.log("ooooooooooooooooo");
-    }
 
     // Send a request to the server with the choices
-    fetch(`/get?category=${category}&event=${event}&age=${age}`)
-      .then(response => response.text())
+    if (!degel){
+      const queryString = Object.keys(obj).map(key => key + '=' + obj[key]).join('&'); 
+    const finalUrl = `/get` + '?' + queryString;  
+    fetch(finalUrl)
+      .then(response =>response.text()
+         )
       .then(data => {
-        // Display the server's response in the response container
+        degel = 3
+        res[0] = data
+        res = res[0].split(degel+".")
         const responseContainer = document.getElementById('responseContainer');
-        responseContainer.innerHTML = `<p>${data}</p>`;
+        responseContainer.innerHTML = `<p>${res[1]}</p>`;
+        degel-=1
       })
       .catch(error => {
         console.error('Error:', error);
       });
+
+    }
+    else{
+      res = res[0].split(degel+".")
+      responseContainer.innerHTML = `<p>${res[1]}</p>`;
+      degel-=1;
+    }
   }
+
   
