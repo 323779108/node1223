@@ -14,6 +14,8 @@ function handleEventChange() {
   }
   function rel(){
     location.reload();
+    degel = 0
+    res = []
     }
   function submitChoices() {
     const responseContainer = document.getElementById('responseContainer')
@@ -29,7 +31,7 @@ function handleEventChange() {
     }
 
     responseContainer.style.display = 'block';
-    responseContainer.innerHTML = `<p></p>`;
+    responseContainer.innerHTML = `<p>אנא המתן</p>`;
     const ageInput = document.getElementById('age');
     const categorySelect = document.getElementById('category');
     const eventSelect = document.getElementById('event');
@@ -48,7 +50,7 @@ function handleEventChange() {
     reButton.style.display = 'block'
     reButton.textContent = " :אווירה "+atmosphere+" :סוג"+category + ' אירוע: '+event;
     if (age!='')
-    reButton.textContent += 'גיל' + age;
+    reButton.textContent += ' גיל ' + age;
 
     document.getElementById("submitButton").innerText = "משהו אחר"
 
